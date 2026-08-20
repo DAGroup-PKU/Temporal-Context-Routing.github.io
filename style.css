@@ -45,9 +45,10 @@ body {
   text-align: center;
   overflow: hidden;
   background:
-    radial-gradient(900px 420px at 50% -160px, rgba(124,92,240,.30), transparent 68%),
-    radial-gradient(600px 300px at 12% 110%, rgba(77,148,224,.13), transparent 70%),
-    radial-gradient(600px 300px at 88% 110%, rgba(230,169,66,.10), transparent 70%),
+    radial-gradient(900px 420px at 50% -160px, rgba(124,92,240,.34), transparent 68%),
+    radial-gradient(760px 320px at 50% 108%, rgba(124,92,240,.20), transparent 72%),
+    radial-gradient(600px 300px at 10% 104%, rgba(77,148,224,.20), transparent 70%),
+    radial-gradient(600px 300px at 90% 104%, rgba(230,169,66,.16), transparent 70%),
     var(--bg);
 }
 
@@ -55,10 +56,10 @@ body {
   content: "";
   position: absolute; inset: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,.022) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px);
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
   background-size: 64px 64px;
-  mask-image: radial-gradient(700px 340px at 50% 30%, #000, transparent 78%);
+  mask-image: radial-gradient(760px 380px at 50% 34%, #000, transparent 78%);
   pointer-events: none;
 }
 
@@ -79,23 +80,46 @@ body {
   font-size: clamp(88px, 16vw, 180px);
   line-height: 1;
   letter-spacing: .04em;
-  color: rgba(167, 139, 250, .07);
   user-select: none;
+  background: linear-gradient(180deg, rgba(167,139,250,.50), rgba(167,139,250,.18));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-.hero-task .mark-what { top: 8%; left: -2%; }
-.hero-task .mark-when { right: -2%; bottom: 18%; color: rgba(230, 169, 66, .08); }
+.hero-task .mark-what { top: 5%; left: 2%; }
+
+.hero-task .mark-when {
+  right: 2%;
+  bottom: 24%;
+  background: linear-gradient(180deg, rgba(230,169,66,.50), rgba(230,169,66,.18));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
 
 .hero-clock {
   position: absolute;
   left: 50%;
-  bottom: 18px;
+  bottom: 16px;
   width: min(1080px, 92%);
   transform: translateX(-50%);
-  opacity: .55;
 }
 
-.hero-clock svg { display: block; width: 100%; height: auto; }
+.hero-clock::before {
+  content: "";
+  position: absolute;
+  inset: -26px -48px -18px;
+  border-radius: 20px;
+  background: radial-gradient(60% 120% at 50% 60%, rgba(124,92,240,.16), transparent 72%);
+  pointer-events: none;
+}
+
+.hero-clock svg {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+}
 
 .venue {
   margin: 0 0 22px;

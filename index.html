@@ -13,6 +13,39 @@
 <body>
 
 <header class="hero">
+  <div class="hero-task" aria-hidden="true">
+    <span class="mark mark-what">what</span>
+    <span class="mark mark-when">when</span>
+    <div class="hero-clock">
+      <svg viewBox="0 0 1200 168" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text x="8" y="38" fill="#6e6883" font-size="13" font-family="Inter, sans-serif">shots</text>
+        <text x="8" y="86" fill="#6e6883" font-size="13" font-family="Inter, sans-serif">dialogue</text>
+        <!-- shot intervals -->
+        <rect x="80"  y="22" width="228" height="22" rx="4" fill="#4d94e0"/>
+        <rect x="312" y="22" width="166" height="22" rx="4" fill="#e6a942"/>
+        <rect x="482" y="22" width="228" height="22" rx="4" fill="#4d94e0"/>
+        <rect x="714" y="22" width="228" height="22" rx="4" fill="#e6a942"/>
+        <rect x="946" y="22" width="186" height="22" rx="4" fill="#4d94e0"/>
+        <!-- dialogue overlaps cuts -->
+        <rect x="122" y="70" width="250" height="22" rx="4" fill="#5d6d92"/>
+        <rect x="392" y="70" width="270" height="22" rx="4" fill="#7a6aa8"/>
+        <rect x="724" y="70" width="332" height="22" rx="4" fill="#5d6d92"/>
+        <!-- routing bumps: what is gated by when -->
+        <path d="M80 22 C 194 -18, 194 -18, 308 22" stroke="#a78bfa" stroke-width="1.6" opacity=".7"/>
+        <path d="M482 22 C 596 -18, 596 -18, 710 22" stroke="#a78bfa" stroke-width="1.6" opacity=".7"/>
+        <path d="M122 92 C 247 128, 247 128, 372 92" stroke="#e6a942" stroke-width="1.6" opacity=".55"/>
+        <!-- axis -->
+        <line x1="80" y1="128" x2="1132" y2="128" stroke="#26232f" stroke-width="1"/>
+        <text x="80" y="148" fill="#6e6883" font-size="11" font-family="JetBrains Mono, monospace">0s</text>
+        <text x="590" y="148" fill="#6e6883" font-size="11" font-family="JetBrains Mono, monospace">5s</text>
+        <text x="1090" y="148" fill="#6e6883" font-size="11" font-family="JetBrains Mono, monospace">10s</text>
+        <line x1="80" y1="8" x2="80" y2="128" stroke="#f4f2f8" stroke-width="1.5">
+          <animate attributeName="x1" values="80;1132;80" dur="10s" repeatCount="indefinite"/>
+          <animate attributeName="x2" values="80;1132;80" dur="10s" repeatCount="indefinite"/>
+        </line>
+      </svg>
+    </div>
+  </div>
   <div class="wrap">
     <p class="venue">Under review</p>
     <h1>Separating <em>What</em> from <em>When</em></h1>
@@ -36,10 +69,10 @@
 <nav class="tocbar">
   <div class="wrap toc">
     <a href="#abstract">Abstract</a>
+    <a href="#demos">Examples</a>
     <a href="#method">Method</a>
     <a href="#data">Data</a>
     <a href="#results">Comparison</a>
-    <a href="#demos">Examples</a>
     <a href="#cite">Citation</a>
   </div>
 </nav>
@@ -61,8 +94,34 @@
   </p>
 </section>
 
+<section class="wrap section" id="demos">
+  <div class="h2row"><span class="h2num">02</span><h2>Generated examples</h2></div>
+  <p class="section-note">
+    Seven held-out scripts, none seen during training. Every clip below was generated from a
+    structured script that states, in seconds, when each shot starts and when each line is spoken.
+    Playing a video alone cannot show whether those times were honoured, so each card carries the
+    script's own clock underneath.
+  </p>
+
+  <div class="legend">
+    <div class="legend-item"><span class="swatch swatch-req"></span>
+      <div><b>Requested</b><br>the interval written in the script</div></div>
+    <div class="legend-item"><span class="swatch swatch-got"></span>
+      <div><b>Produced</b><br>where the cut or line actually landed, measured by the evaluator</div></div>
+    <div class="legend-item"><span class="swatch swatch-head"></span>
+      <div><b>Playhead</b><br>current position, synchronised with the video</div></div>
+  </div>
+  <p class="note">
+    The two rows sit on one timeline on purpose: a line of dialogue often runs straight through a
+    cut, so the shot lane and the dialogue lane cannot be judged independently.
+    Click a card to play or pause. Hover a shot or a line to read what the script asked for.
+  </p>
+
+  <div class="grid" id="grid"></div>
+</section>
+
 <section class="wrap section" id="method">
-  <div class="h2row"><span class="h2num">02</span><h2>Method</h2></div>
+  <div class="h2row"><span class="h2num">03</span><h2>Method</h2></div>
   <p class="section-note">
     The text encoder represents <em>what</em> each record describes; a separate pathway decides
     <em>when</em> it should influence generation.
@@ -125,7 +184,7 @@
 </section>
 
 <section class="wrap section" id="data">
-  <div class="h2row"><span class="h2num">03</span><h2>Construction of data</h2></div>
+  <div class="h2row"><span class="h2num">04</span><h2>Construction of data</h2></div>
   <p class="section-note">
     A model can only learn precise execution from a clock that was precise during training, so the
     timings are measured rather than guessed.
@@ -177,7 +236,7 @@
 </section>
 
 <section class="wrap section" id="results">
-  <div class="h2row"><span class="h2num">04</span><h2>Comparison with open-source generators</h2></div>
+  <div class="h2row"><span class="h2num">05</span><h2>Comparison with open-source generators</h2></div>
   <p class="section-note">
     200 held-out scripts. This table contextualizes end-to-end behaviour across systems that differ
     in architecture and training data; the paper's ablations control for both under one matched
@@ -241,32 +300,6 @@
     intelligible speech, so their speech columns are not applicable. Adding TCR to the same base
     lowers shot Boundary MAE from 1.11&nbsp;s to 0.042&nbsp;s, about one frame at 24&nbsp;fps.
   </p>
-</section>
-
-<section class="wrap section" id="demos">
-  <div class="h2row"><span class="h2num">05</span><h2>Generated examples</h2></div>
-  <p class="section-note">
-    Seven held-out scripts, none seen during training. Every clip below was generated from a
-    structured script that states, in seconds, when each shot starts and when each line is spoken.
-    Playing a video alone cannot show whether those times were honoured, so each card carries the
-    script's own clock underneath.
-  </p>
-
-  <div class="legend">
-    <div class="legend-item"><span class="swatch swatch-req"></span>
-      <div><b>Requested</b><br>the interval written in the script</div></div>
-    <div class="legend-item"><span class="swatch swatch-got"></span>
-      <div><b>Produced</b><br>where the cut or line actually landed, measured by the evaluator</div></div>
-    <div class="legend-item"><span class="swatch swatch-head"></span>
-      <div><b>Playhead</b><br>current position, synchronised with the video</div></div>
-  </div>
-  <p class="note">
-    The two rows sit on one timeline on purpose: a line of dialogue often runs straight through a
-    cut, so the shot lane and the dialogue lane cannot be judged independently.
-    Click a card to play or pause. Hover a shot or a line to read what the script asked for.
-  </p>
-
-  <div class="grid" id="grid"></div>
 </section>
 
 <section class="wrap section" id="cite">

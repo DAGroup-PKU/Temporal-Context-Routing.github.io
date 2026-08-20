@@ -40,7 +40,7 @@ body {
 
 .hero {
   position: relative;
-  padding: 104px 0 78px;
+  padding: 104px 0 196px;
   border-bottom: 1px solid var(--line);
   text-align: center;
   overflow: hidden;
@@ -64,6 +64,39 @@ body {
 
 .hero .wrap { position: relative; z-index: 1; }
 
+.hero-task {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-task .mark {
+  position: absolute;
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(88px, 16vw, 180px);
+  line-height: 1;
+  letter-spacing: .04em;
+  color: rgba(167, 139, 250, .07);
+  user-select: none;
+}
+
+.hero-task .mark-what { top: 8%; left: -2%; }
+.hero-task .mark-when { right: -2%; bottom: 18%; color: rgba(230, 169, 66, .08); }
+
+.hero-clock {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  width: min(1080px, 92%);
+  transform: translateX(-50%);
+  opacity: .55;
+}
+
+.hero-clock svg { display: block; width: 100%; height: auto; }
+
 .venue {
   margin: 0 0 22px;
   font-size: 11.5px;
@@ -76,8 +109,8 @@ body {
 .hero h1 {
   font-family: var(--display);
   font-weight: 500;
-  font-size: clamp(38px, 5.6vw, 68px);
-  line-height: 1.18;
+  font-size: clamp(46px, 7vw, 84px);
+  line-height: 1.16;
   margin: 0 auto 20px;
   letter-spacing: .045em;
   word-spacing: .06em;
@@ -96,10 +129,10 @@ body {
 
 .subtitle {
   font-family: var(--display);
-  font-size: clamp(17px, 2.2vw, 22px);
+  font-size: clamp(19px, 2.5vw, 26px);
   color: var(--ink-soft);
   margin: 0 auto 26px;
-  max-width: 720px;
+  max-width: 760px;
   letter-spacing: .03em;
 }
 
@@ -136,7 +169,7 @@ body {
 .stat-num {
   font-family: var(--display);
   font-weight: 500;
-  font-size: clamp(38px, 5vw, 56px);
+  font-size: clamp(42px, 5.6vw, 64px);
   line-height: 1.12;
   color: var(--ink);
   letter-spacing: .04em;
@@ -200,7 +233,7 @@ body {
 h2 {
   font-family: var(--display);
   font-weight: 500;
-  font-size: 32px;
+  font-size: 36px;
   line-height: 1.24;
   margin: 0;
   letter-spacing: .03em;
@@ -608,11 +641,12 @@ footer p { margin: 0; font-size: 13.5px; color: var(--ink-faint); max-width: 820
   .grid { grid-template-columns: 1fr; }
   .section { padding: 50px 20px; }
   .wrap { padding: 0 20px; }
-  .hero { padding: 72px 0 56px; }
+  .hero { padding: 72px 0 150px; }
+  .hero-task .mark { font-size: 72px; opacity: .8; }
   .toc { gap: 17px; padding: 11px 20px; }
   .figure { padding: 14px 14px 12px; }
   .legend { gap: 16px; }
   .h2num { font-size: 24px; }
-  h2 { font-size: 26px; }
+  h2 { font-size: 28px; }
   .stat { gap: 12px; }
 }

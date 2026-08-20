@@ -330,6 +330,11 @@ function buildCard(d) {
 }
 
 function boot(rows) {
+  // The clips are not all the same shape. Give the grid the shortest frame of
+  // the bunch so the rows share one height; object-fit letterboxes the rest.
+  const shortest = rows.slice(1).reduce((min, d) => Math.min(min, (d.h || 1280) / (d.w || 704)), Infinity);
+  if (Number.isFinite(shortest)) grid.style.setProperty('--row-ar', `1 / ${shortest.toFixed(4)}`);
+
   rows.forEach((d, i) => {
     const card = buildCard(d);
     if (i === 0) card.classList.add('featured');

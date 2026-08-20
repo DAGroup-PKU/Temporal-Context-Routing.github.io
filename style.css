@@ -474,7 +474,7 @@ h3 {
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  align-items: start;
+  align-items: stretch;
   gap: 26px;
 }
 
@@ -508,10 +508,18 @@ h3 {
   color: var(--ink);
 }
 
+/* Two lines are reserved whether or not the title wraps, so every stage in a
+   row starts at the same height. */
+.card:not(.featured) .card-title { min-height: 2.6em; }
+
 .card-meta { font-size: 12px; color: var(--ink-faint); font-family: "JetBrains Mono", monospace; flex: none; }
 
 .stage { position: relative; background: #000; cursor: pointer; user-select: none; }
 .stage video { display: block; width: 100%; aspect-ratio: var(--ar, 704 / 1280); object-fit: contain; background: #000; }
+
+/* One frame shape for the whole grid, set from the clips themselves, so the
+   timelines under the videos line up too. */
+.card:not(.featured) .stage video { aspect-ratio: var(--row-ar, var(--ar, 704 / 1280)); }
 
 .playbtn {
   position: absolute; inset: 0;
@@ -751,6 +759,9 @@ footer p { margin: 0; font-size: 13.5px; color: var(--ink-faint); max-width: 820
 
 @media (max-width: 660px) {
   .grid { grid-template-columns: 1fr; }
+  /* Single column: nothing to line up, so titles take only the room they need. */
+  .card:not(.featured) .card-title { min-height: 0; }
+  .card:not(.featured) .stage video { aspect-ratio: var(--ar, 704 / 1280); }
   .section { padding: 50px 20px; }
   .wrap { padding: 0 20px; }
   .hero { padding: 72px 0 150px; }

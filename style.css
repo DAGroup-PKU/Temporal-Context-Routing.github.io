@@ -649,12 +649,43 @@ h3 {
   .card.featured .stage { grid-area: stage; margin: 0 0 20px 24px; border-radius: 10px; overflow: hidden; }
   .card.featured .stage video { max-height: 440px; width: auto; max-width: 100%; margin: 0 auto; }
   .card.featured .card-body { grid-area: body; display: flex; flex-direction: column; justify-content: center; min-height: 100%; }
+  .card.featured .claim { padding: 0 24px 16px; }
   .card.featured .tl { border-top: 0; padding: 4px 24px 0; }
   .card.featured .lane { height: 34px; }
   .card.featured .lane.dia { height: 26px; }
   .card.featured .seg { font-size: 12px; }
   .card.featured .readout { min-height: 58px; font-size: 14px; }
   .card.featured .scene { padding: 14px 24px 20px; font-size: 13.5px; }
+}
+
+/* ---------- opening claim ---------- */
+
+.claim { padding: 16px 17px 2px; }
+
+.claim-line {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(30px, 3.1vw, 44px);
+  line-height: 1.14;
+  letter-spacing: .01em;
+  color: var(--ink);
+}
+
+.claim-line em {
+  font-style: italic;
+  background: linear-gradient(96deg, #b7a4ff 8%, #ffd07a 92%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.claim-sub {
+  margin: 13px 0 0;
+  max-width: 52ch;
+  font-size: 13.5px;
+  line-height: 1.62;
+  color: var(--ink-faint);
 }
 
 /* ---------- timeline ---------- */

@@ -118,8 +118,8 @@
 
 <nav class="tocbar">
   <div class="wrap toc">
-    <a href="#abstract">Abstract</a>
     <a href="#demos">Examples</a>
+    <a href="#abstract">Abstract</a>
     <a href="#method">Method</a>
     <a href="#data">Data</a>
     <a href="#results">Comparison</a>
@@ -129,23 +129,8 @@
 
 <main>
 
-<section class="wrap section" id="abstract">
-  <div class="h2row"><span class="h2num">01</span><h2>Abstract</h2></div>
-  <p class="abstract">
-    Audio-video generation is shifting from prompt following to script execution, where success
-    depends on placing the requested content at the requested time. A director-style script
-    schedules shots and spoken lines on one clock, so a plausible clip can still fail by cutting
-    late or letting dialogue cross the wrong boundary. An interval defines the target, but the
-    generator still needs a way to vary each script element's influence over video and audio
-    queries. We formulate this missing operation as <strong>temporal routing</strong>.
-    <strong>Temporal Context Routing (TCR)</strong> realizes it by adding an interval-derived
-    timing score to content-based text-attention logits, thereby factorizing unnormalized
-    attention mass into <em>what</em> and <em>when</em> terms on a shared audio&ndash;visual clock.
-  </p>
-</section>
-
 <section class="wrap section" id="demos">
-  <div class="h2row"><span class="h2num">02</span><h2>Generated examples</h2></div>
+  <div class="h2row"><span class="h2num">01</span><h2>Generated examples</h2></div>
   <p class="section-note">
     Seven held-out scripts, none seen during training. Every clip below was generated from a
     structured script that states, in seconds, when each shot starts and when each line is spoken.
@@ -168,6 +153,21 @@
   </p>
 
   <div class="grid" id="grid"></div>
+</section>
+
+<section class="wrap section" id="abstract">
+  <div class="h2row"><span class="h2num">02</span><h2>Abstract</h2></div>
+  <p class="abstract">
+    Audio-video generation is shifting from prompt following to script execution, where success
+    depends on placing the requested content at the requested time. A director-style script
+    schedules shots and spoken lines on one clock, so a plausible clip can still fail by cutting
+    late or letting dialogue cross the wrong boundary. An interval defines the target, but the
+    generator still needs a way to vary each script element's influence over video and audio
+    queries. We formulate this missing operation as <strong>temporal routing</strong>.
+    <strong>Temporal Context Routing (TCR)</strong> realizes it by adding an interval-derived
+    timing score to content-based text-attention logits, thereby factorizing unnormalized
+    attention mass into <em>what</em> and <em>when</em> terms on a shared audio&ndash;visual clock.
+  </p>
 </section>
 
 <section class="wrap section" id="method">

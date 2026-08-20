@@ -329,6 +329,18 @@ function buildCard(d) {
   return card;
 }
 
+function addClaim(card) {
+  const el = document.createElement('div');
+  el.className = 'claim';
+  el.innerHTML =
+    `<p class="claim-line">Two streams, one clock.<br><em>Played to the second.</em></p>` +
+    `<p class="claim-sub">Picture and speech are generated as two streams against a single shared ` +
+    `timeline. Temporal Context Routing turns every interval in the script into a timing term on ` +
+    `the text-attention logits, so both streams read the same clock and each shot and each line ` +
+    `is performed where the prompt placed it.</p>`;
+  card.querySelector('.card-body').prepend(el);
+}
+
 function boot(rows) {
   // The clips are not all the same shape. Give the grid the shortest frame of
   // the bunch so the rows share one height; object-fit letterboxes the rest.
@@ -337,7 +349,10 @@ function boot(rows) {
 
   rows.forEach((d, i) => {
     const card = buildCard(d);
-    if (i === 0) card.classList.add('featured');
+    if (i === 0) {
+      card.classList.add('featured');
+      addClaim(card);
+    }
     grid.appendChild(card);
   });
 }

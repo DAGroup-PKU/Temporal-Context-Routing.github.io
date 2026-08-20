@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Separating What from When &mdash; Temporal Context Routing</title>
+<meta name="description" content="Fine-grained temporal control for joint audio-video generation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="venue">Under review</p>
+    <h1>Separating <em>What</em> from <em>When</em></h1>
+    <p class="subtitle">Fine-Grained Temporal Control for Joint Audio-Video Generation</p>
+    <p class="authors">Anonymous Authors</p>
+    <nav class="links">
+      <a class="btn" href="#" aria-disabled="true">Paper</a>
+      <a class="btn" href="#" aria-disabled="true">arXiv</a>
+      <a class="btn" href="#" aria-disabled="true">Code</a>
+      <a class="btn btn-primary" href="#demos">Demos</a>
+    </nav>
+
+    <div class="stat">
+      <div class="stat-num">0.042<span>s</span></div>
+      <p class="stat-cap"><b>Mean shot boundary error</b>
+        about one frame at 24&nbsp;fps, down from 1.11&nbsp;s on the same base model</p>
+    </div>
+  </div>
+</header>
+
+<nav class="tocbar">
+  <div class="wrap toc">
+    <a href="#abstract">Abstract</a>
+    <a href="#method">Method</a>
+    <a href="#data">Data</a>
+    <a href="#results">Comparison</a>
+    <a href="#demos">Examples</a>
+    <a href="#cite">Citation</a>
+  </div>
+</nav>
+
+<main>
+
+<section class="wrap section" id="abstract">
+  <div class="h2row"><span class="h2num">01</span><h2>Abstract</h2></div>
+  <p class="abstract">
+    Audio-video generation is shifting from prompt following to script execution, where success
+    depends on placing the requested content at the requested time. A director-style script
+    schedules shots and spoken lines on one clock, so a plausible clip can still fail by cutting
+    late or letting dialogue cross the wrong boundary. An interval defines the target, but the
+    generator still needs a way to vary each script element's influence over video and audio
+    queries. We formulate this missing operation as <strong>temporal routing</strong>.
+    <strong>Temporal Context Routing (TCR)</strong> realizes it by adding an interval-derived
+    timing score to content-based text-attention logits, thereby factorizing unnormalized
+    attention mass into <em>what</em> and <em>when</em> terms on a shared audio&ndash;visual clock.
+  </p>
+</section>
+
+<section class="wrap section" id="method">
+  <div class="h2row"><span class="h2num">02</span><h2>Method</h2></div>
+  <p class="section-note">
+    The text encoder represents <em>what</em> each record describes; a separate pathway decides
+    <em>when</em> it should influence generation.
+  </p>
+
+  <figure class="figure">
+    <img src="assets/figures/fig_method_v10.png"
+         alt="TCR applied to the video and audio towers of a joint backbone">
+    <figcaption>
+      <b>Figure 1.</b> Blue and green are the video and audio towers in <b>(b)</b>, but a shot and a
+      spoken line in <b>(a)</b> and <b>(c)</b>; gold always marks time. <b>(a)</b> The script, each
+      interval a gold bar. <b>(b)</b> The intervals bypass the text encoder and arrive as a routing
+      term on a gold side channel into text cross-attention. <b>(c)</b> Each interval becomes a
+      duration-normalized arc reaching its floor at its own endpoints.
+    </figcaption>
+  </figure>
+
+  <div class="cols">
+    <div class="col">
+      <h3>Time never enters the text encoder</h3>
+      <p>
+        Every <code>time_range</code> field is stripped from the script before tokenization and kept
+        in an index-aligned timing map. Shot, Event, Reference and Global records are matched back to
+        tokenizer positions, so each content token inherits the interval of the record it belongs to.
+        Tokens the script never placed &mdash; padding, special tokens, register slots &mdash; take a
+        sentinel interval and receive no routing term at all.
+      </p>
+    </div>
+    <div class="col">
+      <h3>One term added to the attention logits</h3>
+      <p>
+        For a token with interval centre <i>c</i> and radius <i>r</i>, and a latent query at wall-clock
+        time <i>t</i>, we add
+        <span class="math">B = &minus;&beta;(t&minus;c)<sup>2</sup> / 2r<sup>2</sup></span>
+        to the pre-softmax text cross-attention logit. Because the terms combine additively, the
+        unnormalized attention weight factorizes: semantic evidence selects what fits, the routing
+        term decides when it matters. TCR has no learned parameters, and &beta; is fixed at 5
+        everywhere.
+      </p>
+    </div>
+    <div class="col">
+      <h3>Normalized by duration, not by a fixed width</h3>
+      <p>
+        Dividing by each record's own radius makes the profile relative to its duration, so a
+        0.8-second reaction and a 4-second establishing shot are treated alike rather than gated
+        uniformly. Adjacent intervals meet their shared boundary at the same value, making the
+        handoff between them duration-independent.
+      </p>
+    </div>
+    <div class="col">
+      <h3>Both towers read the same clock</h3>
+      <p>
+        The routing term reads only wall-clock seconds, so a single function compiled once from the
+        script is evaluated at the query times of each branch. The two routing matrices differ in
+        shape because the latent lattices differ; what is shared is the function and its clock. A
+        dialogue token and the shot it crosses are therefore routed against the same timeline.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap section" id="data">
+  <div class="h2row"><span class="h2num">03</span><h2>Construction of data</h2></div>
+  <p class="section-note">
+    A model can only learn precise execution from a clock that was precise during training, so the
+    timings are measured rather than guessed.
+  </p>
+
+  <figure class="figure">
+    <img src="assets/figures/fig_data_pipeline_v3.png"
+         alt="Three-stage pipeline for building multi-shot audio-visual clips with corrected timings">
+    <figcaption>
+      <b>Figure 2.</b> The pipeline traced on real data; each panel header names the tool.
+      <b>(a)</b> A clip is kept only when both boundaries fall in speech-free regions; interior cuts
+      are retained, making the unit multi-shot. <b>(b)</b> Gemini proposes a structured record with
+      provisional intervals. <b>(c)</b> Shot detection relocates those cuts and word alignment
+      re-times each line from audio.
+    </figcaption>
+  </figure>
+
+  <ol class="stages">
+    <li>
+      <h3>Cut on sound, not on picture</h3>
+      <p>
+        Source episodes are split where the speech band goes silent, under an asymmetric rule: a clip
+        must begin and end inside a speech-free region, while visual cuts inside it are deliberately
+        kept. The resulting units are multi-shot clips in which dialogue routinely continues across a
+        shot change and a line is often spoken by someone momentarily off screen &mdash; exactly the
+        structure that fixed-length windows or per-shot clipping would destroy.
+      </p>
+    </li>
+    <li>
+      <h3>Propose structure with a captioner</h3>
+      <p>
+        Gemini proposes grounded Reference, Shot, Event and Global records, using stable identifiers
+        instead of repeated appearance descriptions and keeping dialogue in its original spoken
+        language. Fields that must not reach the model, most importantly transcribed burned-in
+        subtitles, are removed at this stage.
+      </p>
+    </li>
+    <li>
+      <h3>Replace guessed times with measured ones</h3>
+      <p>
+        A record is retained only when its shot count agrees with a separately run content-based
+        detector; a disagreement discards the clip rather than forcing an alignment. On agreement the
+        detector's cut times replace the provisional boundaries, and WhisperX supplies word-level
+        timestamps from the audio alone to re-time every line. The captioner supplies semantic
+        structure; the detectors supply the clock.
+      </p>
+    </li>
+  </ol>
+</section>
+
+<section class="wrap section" id="results">
+  <div class="h2row"><span class="h2num">04</span><h2>Comparison with open-source generators</h2></div>
+  <p class="section-note">
+    200 held-out scripts. This table contextualizes end-to-end behaviour across systems that differ
+    in architecture and training data; the paper's ablations control for both under one matched
+    recipe.
+  </p>
+
+  <div class="tablewrap">
+    <table class="results">
+      <thead>
+        <tr>
+          <th rowspan="2" class="lead">System</th>
+          <th colspan="2">Video quality</th>
+          <th colspan="4">Temporal accuracy</th>
+          <th colspan="3">Speech &amp; A/V sync</th>
+        </tr>
+        <tr>
+          <th>IQ &uarr;</th><th>AES &uarr;</th>
+          <th>Shot B-MAE (s) &darr;</th><th>Shot IoU &uarr;</th>
+          <th>Count Acc. (%) &uarr;</th><th>Acc@0.5s (%) &uarr;</th>
+          <th>WER (%) &darr;</th><th>Sync-C &uarr;</th><th>Off. Acc (%) &uarr;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="lead">Wan2.2 <span class="tag">video only</span></td>
+          <td class="second">0.6820</td><td>0.5150</td>
+          <td>2.31</td><td>0.422</td><td>9.0</td><td>0.0</td>
+          <td class="na">n/a</td><td class="na">n/a</td><td class="na">n/a</td>
+        </tr>
+        <tr>
+          <td class="lead">OVI</td>
+          <td>0.6640</td><td class="best">0.5602</td>
+          <td>1.84</td><td>0.457</td><td>17.0</td><td>8.6</td>
+          <td>56.9</td><td>2.37</td><td>17.2</td>
+        </tr>
+        <tr>
+          <td class="lead">JoyAI-Echo</td>
+          <td>0.6680</td><td>0.5167</td>
+          <td>1.81</td><td>0.464</td><td>15.5</td><td class="second">23.2</td>
+          <td class="second">11.9</td><td class="second">2.71</td><td>7.3</td>
+        </tr>
+        <tr>
+          <td class="lead">LTX-2.3 <span class="tag">our base</span></td>
+          <td>0.6819</td><td>0.5354</td>
+          <td class="second">1.11</td><td class="second">0.532</td>
+          <td class="second">36.0</td><td>0.0</td>
+          <td class="na">n/a</td><td>2.55</td><td class="best">31.2</td>
+        </tr>
+        <tr class="ours">
+          <td class="lead">TCR <span class="tag tag-ours">ours</span></td>
+          <td class="best">0.7032</td><td class="second">0.5477</td>
+          <td class="best">0.042</td><td class="best">0.957</td>
+          <td class="best">93.0</td><td class="best">84.1</td>
+          <td class="best">8.48</td><td class="best">2.78</td><td class="second">30.5</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="tnote">
+    <b>Bold</b> is best, <u>underline</u> second best. Wan2.2 emits no audio, and LTX-2.3 produces no
+    intelligible speech, so their speech columns are not applicable. Adding TCR to the same base
+    lowers shot Boundary MAE from 1.11&nbsp;s to 0.042&nbsp;s, about one frame at 24&nbsp;fps.
+  </p>
+</section>
+
+<section class="wrap section" id="demos">
+  <div class="h2row"><span class="h2num">05</span><h2>Generated examples</h2></div>
+  <p class="section-note">
+    Seven held-out scripts, none seen during training. Every clip below was generated from a
+    structured script that states, in seconds, when each shot starts and when each line is spoken.
+    Playing a video alone cannot show whether those times were honoured, so each card carries the
+    script's own clock underneath.
+  </p>
+
+  <div class="legend">
+    <div class="legend-item"><span class="swatch swatch-req"></span>
+      <div><b>Requested</b><br>the interval written in the script</div></div>
+    <div class="legend-item"><span class="swatch swatch-got"></span>
+      <div><b>Produced</b><br>where the cut or line actually landed, measured by the evaluator</div></div>
+    <div class="legend-item"><span class="swatch swatch-head"></span>
+      <div><b>Playhead</b><br>current position, synchronised with the video</div></div>
+  </div>
+  <p class="note">
+    The two rows sit on one timeline on purpose: a line of dialogue often runs straight through a
+    cut, so the shot lane and the dialogue lane cannot be judged independently.
+    Click a card to play or pause. Hover a shot or a line to read what the script asked for.
+  </p>
+
+  <div class="grid" id="grid"></div>
+</section>
+
+<section class="wrap section" id="cite">
+  <div class="h2row"><span class="h2num">06</span><h2>Citation</h2></div>
+  <pre class="cite">@inproceedings{anonymous2027separating,
+  title     = {Separating What from When: Fine-Grained Temporal Control
+               for Joint Audio-Video Generation},
+  author    = {Anonymous Authors},
+  booktitle = {Under review},
+  year      = {2027}
+}</pre>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <p>Videos on this page are generated by our model from held-out scripts. No cherry-picking across
+     checkpoints: every clip comes from the same model at the same training step used in the paper.</p>
+</footer>
+
+<script src="assets/data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

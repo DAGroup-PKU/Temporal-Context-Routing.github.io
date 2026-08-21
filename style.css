@@ -160,7 +160,42 @@ body {
   letter-spacing: .03em;
 }
 
-.authors { margin: 0 0 30px; color: var(--ink-faint); font-size: 15px; letter-spacing: .02em; }
+.authors {
+  margin: 0 auto 10px;
+  max-width: 860px;
+  color: var(--ink-soft);
+  font-size: 16px;
+  line-height: 1.75;
+  letter-spacing: .01em;
+}
+
+.authors sup {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--violet);
+  margin-left: 1px;
+}
+
+.affils {
+  list-style: none;
+  margin: 0 auto 30px;
+  padding: 0;
+  max-width: 860px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 22px;
+  font-size: 13px;
+  color: var(--ink-faint);
+  line-height: 1.45;
+}
+
+.affils sup {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--violet);
+  margin-right: 5px;
+}
 
 .links { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 

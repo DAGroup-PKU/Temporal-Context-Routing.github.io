@@ -1,8 +1,8 @@
 # Project page — Separating What from When
 
-**Live page:** https://LiuY1Chen.github.io/SEPARATING-WHAT-FROM-WHEN/
+**Live page:** https://dagroup-pku.github.io/SEPARATING-WHAT-FROM-WHEN/
 
-Anonymous project page for *Fine-Grained Temporal Control for Joint Audio-Video Generation*.
+Project page for *Fine-Grained Temporal Control for Joint Audio-Video Generation*.
 
 ## Running it
 
@@ -64,6 +64,5 @@ eight were chosen to cover distinct settings.
 
 ## Before publishing
 
-- `index.html` says *Anonymous Authors* and the Paper / arXiv / Code buttons are disabled.
-  Fill in the author line and the three `href`s when de-anonymising.
+- The Paper / arXiv / Code buttons are disabled. Fill in the three `href`s when those links exist.
 - Total size is about 41 MB, which is within GitHub Pages limits.

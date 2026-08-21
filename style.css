@@ -319,8 +319,8 @@ h3 {
 
 .cols {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 26px 44px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px 48px;
 }
 
 .col p { margin: 0; font-size: 14.5px; line-height: 1.72; color: var(--ink-soft); }
@@ -790,6 +790,7 @@ footer p { margin: 0; font-size: 13.5px; color: var(--ink-faint); max-width: 820
 
 @media (max-width: 660px) {
   .grid { grid-template-columns: 1fr; }
+  .cols { grid-template-columns: 1fr; gap: 28px; }
   /* Single column: nothing to line up, so titles take only the room they need. */
   .card:not(.featured) .card-title { min-height: 0; }
   .card:not(.featured) .stage video { aspect-ratio: var(--ar, 704 / 1280); }

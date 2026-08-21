@@ -7,8 +7,8 @@
 <meta name="description" content="Fine-grained temporal control for joint audio-video generation.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=tl3">
 </head>
 <body>
 
@@ -19,14 +19,47 @@
     <div class="hero-clock">
       <svg viewBox="0 -22 1200 194" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
+          <!-- Cool family is what: shots take steel, speech takes sage, matching
+               the paper's blue and green towers. Gold is when, and only when. -->
           <linearGradient id="gShotA" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#7cbcff"/><stop offset="1" stop-color="#3f83d6"/>
+            <stop offset="0" stop-color="#d8e6f2"/>
+            <stop offset=".16" stop-color="#7fa8c8"/>
+            <stop offset="1" stop-color="#3d5770"/>
           </linearGradient>
           <linearGradient id="gShotB" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#ffd07a"/><stop offset="1" stop-color="#dd9a32"/>
+            <stop offset="0" stop-color="#c5d5e4"/>
+            <stop offset=".16" stop-color="#6a8eaa"/>
+            <stop offset="1" stop-color="#33485c"/>
           </linearGradient>
           <linearGradient id="gDia" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#b7a4ff"/><stop offset="1" stop-color="#6f5fc4"/>
+            <stop offset="0" stop-color="#d4e2dc"/>
+            <stop offset=".18" stop-color="#7a9a8c"/>
+            <stop offset="1" stop-color="#3d524c"/>
+          </linearGradient>
+
+          <!-- When. The bump is at its floor on its own endpoints, so the fill is given
+               no height to occupy there and dies out on its own; brightest at the crest,
+               which is where the timing term peaks. -->
+          <linearGradient id="gBumpUp" gradientUnits="userSpaceOnUse" x1="0" y1="-10" x2="0" y2="22">
+            <stop offset="0" stop-color="#ffd79a" stop-opacity=".9"/>
+            <stop offset="1" stop-color="#e0a13a" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="gBumpDn" gradientUnits="userSpaceOnUse" x1="0" y1="113" x2="0" y2="96">
+            <stop offset="0" stop-color="#ffd79a" stop-opacity=".9"/>
+            <stop offset="1" stop-color="#e0a13a" stop-opacity="0"/>
+          </linearGradient>
+          <!-- The clock both streams read, brass warming towards the middle. -->
+          <linearGradient id="gClock" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#8a6a2e" stop-opacity=".25"/>
+            <stop offset=".2" stop-color="#dcb264" stop-opacity=".9"/>
+            <stop offset=".8" stop-color="#dcb264" stop-opacity=".9"/>
+            <stop offset="1" stop-color="#8a6a2e" stop-opacity=".25"/>
+          </linearGradient>
+          <!-- The playhead is a beam struck on the clock, not a bar laid across it. -->
+          <linearGradient id="gHead" gradientUnits="userSpaceOnUse" x1="0" y1="-18" x2="0" y2="130">
+            <stop offset="0" stop-color="#ffffff" stop-opacity=".12"/>
+            <stop offset=".6" stop-color="#ffffff" stop-opacity=".75"/>
+            <stop offset="1" stop-color="#ffffff"/>
           </linearGradient>
           <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
             <feGaussianBlur stdDeviation="5" result="b"/>
@@ -36,60 +69,118 @@
 
         <text x="6" y="40" fill="#9a93ad" font-size="12.5" letter-spacing="1.4" font-family="Inter, sans-serif">SHOTS</text>
         <text x="6" y="92" fill="#9a93ad" font-size="12.5" letter-spacing="1.4" font-family="Inter, sans-serif">DIALOGUE</text>
+        <!-- Names the gold layer, so the two colours cannot be read as two streams. -->
+        <text x="6" y="134" fill="#c9a24f" font-size="12.5" letter-spacing="1.4" font-family="Inter, sans-serif">CLOCK</text>
 
-        <!-- requested shot intervals; each lights up as the playhead enters it -->
-        <rect x="80" y="22" width="228" height="26" rx="5" fill="url(#gShotA)" fill-opacity=".45">
-          <animate attributeName="fill-opacity" values=".45;1;1;.45;.45" keyTimes="0;0;0.217;0.235;1" dur="10s" repeatCount="indefinite"/>
-        </rect>
-        <rect x="312" y="22" width="166" height="26" rx="5" fill="url(#gShotB)" fill-opacity=".45">
-          <animate attributeName="fill-opacity" values=".45;.45;1;1;.45;.45" keyTimes="0;0.205;0.221;0.378;0.396;1" dur="10s" repeatCount="indefinite"/>
-        </rect>
-        <rect x="482" y="22" width="228" height="26" rx="5" fill="url(#gShotA)" fill-opacity=".45">
-          <animate attributeName="fill-opacity" values=".45;.45;1;1;.45;.45" keyTimes="0;0.366;0.382;0.599;0.617;1" dur="10s" repeatCount="indefinite"/>
-        </rect>
-        <rect x="714" y="22" width="228" height="26" rx="5" fill="url(#gShotB)" fill-opacity=".45">
-          <animate attributeName="fill-opacity" values=".45;.45;1;1;.45;.45" keyTimes="0;0.587;0.603;0.819;0.837;1" dur="10s" repeatCount="indefinite"/>
-        </rect>
-        <rect x="946" y="22" width="186" height="26" rx="5" fill="url(#gShotA)" fill-opacity=".45">
-          <animate attributeName="fill-opacity" values=".45;.45;1;1" keyTimes="0;0.807;0.823;1" dur="10s" repeatCount="indefinite"/>
-        </rect>
-
-        <!-- spoken lines, deliberately crossing the cuts above -->
-        <rect x="122" y="74" width="250" height="22" rx="5" fill="url(#gDia)" fill-opacity=".4">
-          <animate attributeName="fill-opacity" values=".4;.4;1;1;.4;.4" keyTimes="0;0.024;0.04;0.277;0.295;1" dur="10s" repeatCount="indefinite"/>
-        </rect>
-        <rect x="392" y="74" width="270" height="22" rx="5" fill="url(#gDia)" fill-opacity=".4">
-          <animate attributeName="fill-opacity" values=".4;.4;1;1;.4;.4" keyTimes="0;0.281;0.297;0.553;0.571;1" dur="10s" repeatCount="indefinite"/>
-        </rect>
-        <rect x="724" y="74" width="332" height="22" rx="5" fill="url(#gDia)" fill-opacity=".4">
-          <animate attributeName="fill-opacity" values=".4;.4;1;1;.4;.4" keyTimes="0;0.596;0.612;0.928;0.946;1" dur="10s" repeatCount="indefinite"/>
-        </rect>
-
-        <!-- routing bumps: the timing term added to each interval -->
-        <path d="M80 22 C 194 -20, 194 -20, 308 22" stroke="#c3b0ff" stroke-width="2" opacity=".85"/>
-        <path d="M482 22 C 596 -20, 596 -20, 710 22" stroke="#c3b0ff" stroke-width="2" opacity=".85"/>
-        <path d="M714 22 C 828 -20, 828 -20, 942 22" stroke="#ffd07a" stroke-width="2" opacity=".6"/>
-        <path d="M122 96 C 247 134, 247 134, 372 96" stroke="#b7a4ff" stroke-width="2" opacity=".6"/>
-
-        <!-- shared clock -->
-        <line x1="80" y1="130" x2="1132" y2="130" stroke="#3b3550" stroke-width="1.5"/>
-        <g stroke="#3b3550" stroke-width="1.5">
-          <line x1="80" y1="130" x2="80" y2="138"/>
-          <line x1="343" y1="130" x2="343" y2="136"/>
-          <line x1="606" y1="130" x2="606" y2="138"/>
-          <line x1="869" y1="130" x2="869" y2="136"/>
-          <line x1="1132" y1="130" x2="1132" y2="138"/>
+        <!-- When, for the shots. Each interval also arrives as a timing term on a gold
+             side channel. Leaving the path open lets one element carry both the crest
+             line and the mass under it: fill closes the curve, stroke does not. -->
+        <g fill="url(#gBumpUp)" stroke="#ffd79a" stroke-width="1.5" stroke-linecap="round">
+          <path d="M80 22 C 144 -20, 244 -20, 308 22" fill-opacity=".13" stroke-opacity=".26">
+            <animate attributeName="fill-opacity" values=".13;.55;.55;.13;.13" keyTimes="0;0;0.217;0.235;1" dur="10s" repeatCount="indefinite"/>
+            <animate attributeName="stroke-opacity" values=".26;1;1;.26;.26" keyTimes="0;0;0.217;0.235;1" dur="10s" repeatCount="indefinite"/>
+          </path>
+          <path d="M312 22 C 359 -20, 432 -20, 478 22" fill-opacity=".13" stroke-opacity=".26">
+            <animate attributeName="fill-opacity" values=".13;.13;.55;.55;.13;.13" keyTimes="0;0.205;0.221;0.378;0.396;1" dur="10s" repeatCount="indefinite"/>
+            <animate attributeName="stroke-opacity" values=".26;.26;1;1;.26;.26" keyTimes="0;0.205;0.221;0.378;0.396;1" dur="10s" repeatCount="indefinite"/>
+          </path>
+          <path d="M482 22 C 546 -20, 646 -20, 710 22" fill-opacity=".13" stroke-opacity=".26">
+            <animate attributeName="fill-opacity" values=".13;.13;.55;.55;.13;.13" keyTimes="0;0.366;0.382;0.599;0.617;1" dur="10s" repeatCount="indefinite"/>
+            <animate attributeName="stroke-opacity" values=".26;.26;1;1;.26;.26" keyTimes="0;0.366;0.382;0.599;0.617;1" dur="10s" repeatCount="indefinite"/>
+          </path>
+          <path d="M714 22 C 778 -20, 878 -20, 942 22" fill-opacity=".13" stroke-opacity=".26">
+            <animate attributeName="fill-opacity" values=".13;.13;.55;.55;.13;.13" keyTimes="0;0.587;0.603;0.819;0.837;1" dur="10s" repeatCount="indefinite"/>
+            <animate attributeName="stroke-opacity" values=".26;.26;1;1;.26;.26" keyTimes="0;0.587;0.603;0.819;0.837;1" dur="10s" repeatCount="indefinite"/>
+          </path>
+          <path d="M946 22 C 998 -20, 1080 -20, 1132 22" fill-opacity=".13" stroke-opacity=".26">
+            <animate attributeName="fill-opacity" values=".13;.13;.55;.55" keyTimes="0;0.807;0.823;1" dur="10s" repeatCount="indefinite"/>
+            <animate attributeName="stroke-opacity" values=".26;.26;1;1" keyTimes="0;0.807;0.823;1" dur="10s" repeatCount="indefinite"/>
+          </path>
         </g>
-        <text x="80" y="156" fill="#8b839f" font-size="11.5" font-family="JetBrains Mono, monospace">0s</text>
-        <text x="588" y="156" fill="#8b839f" font-size="11.5" font-family="JetBrains Mono, monospace">5s</text>
-        <text x="1104" y="156" fill="#8b839f" font-size="11.5" font-family="JetBrains Mono, monospace">10s</text>
+
+        <!-- What, for the shots. The outline is always there because the script declared
+             the interval; the fill arrives only when the clock reaches it. Idle sits
+             high enough to read the lip, short of the highlighter pop at 1. -->
+        <g stroke="#c5d4e4" stroke-opacity=".45" stroke-width=".9">
+          <rect x="80" y="22" width="228" height="26" rx="6" fill="url(#gShotA)" fill-opacity=".42">
+            <animate attributeName="fill-opacity" values=".42;.92;.92;.42;.42" keyTimes="0;0;0.217;0.235;1" dur="10s" repeatCount="indefinite"/>
+          </rect>
+          <rect x="312" y="22" width="166" height="26" rx="6" fill="url(#gShotB)" fill-opacity=".42">
+            <animate attributeName="fill-opacity" values=".42;.42;.92;.92;.42;.42" keyTimes="0;0.205;0.221;0.378;0.396;1" dur="10s" repeatCount="indefinite"/>
+          </rect>
+          <rect x="482" y="22" width="228" height="26" rx="6" fill="url(#gShotA)" fill-opacity=".42">
+            <animate attributeName="fill-opacity" values=".42;.42;.92;.92;.42;.42" keyTimes="0;0.366;0.382;0.599;0.617;1" dur="10s" repeatCount="indefinite"/>
+          </rect>
+          <rect x="714" y="22" width="228" height="26" rx="6" fill="url(#gShotB)" fill-opacity=".42">
+            <animate attributeName="fill-opacity" values=".42;.42;.92;.92;.42;.42" keyTimes="0;0.587;0.603;0.819;0.837;1" dur="10s" repeatCount="indefinite"/>
+          </rect>
+          <rect x="946" y="22" width="186" height="26" rx="6" fill="url(#gShotA)" fill-opacity=".42">
+            <animate attributeName="fill-opacity" values=".42;.42;.92;.92" keyTimes="0;0.807;0.823;1" dur="10s" repeatCount="indefinite"/>
+          </rect>
+        </g>
+
+        <!-- What, for the speech. Sage sits next to the steel of the shots the way
+             the paper's audio tower sits next to its video tower. -->
+        <g stroke="#c5d4cc" stroke-opacity=".40" stroke-width=".9">
+          <rect x="122" y="74" width="250" height="22" rx="6" fill="url(#gDia)" fill-opacity=".4">
+            <animate attributeName="fill-opacity" values=".4;.4;.88;.88;.4;.4" keyTimes="0;0.024;0.04;0.277;0.295;1" dur="10s" repeatCount="indefinite"/>
+          </rect>
+          <rect x="392" y="74" width="270" height="22" rx="6" fill="url(#gDia)" fill-opacity=".4">
+            <animate attributeName="fill-opacity" values=".4;.4;.88;.88;.4;.4" keyTimes="0;0.281;0.297;0.553;0.571;1" dur="10s" repeatCount="indefinite"/>
+          </rect>
+          <rect x="724" y="74" width="332" height="22" rx="6" fill="url(#gDia)" fill-opacity=".4">
+            <animate attributeName="fill-opacity" values=".4;.4;.88;.88;.4;.4" keyTimes="0;0.596;0.612;0.928;0.946;1" dur="10s" repeatCount="indefinite"/>
+          </rect>
+        </g>
+
+        <!-- When, for the speech: the same gold bump, mirrored under its own lane. -->
+        <g fill="url(#gBumpDn)" stroke="#ffd79a" stroke-width="1.5" stroke-linecap="round">
+          <path d="M122 96 C 192 118, 302 118, 372 96" fill-opacity=".13" stroke-opacity=".26">
+            <animate attributeName="fill-opacity" values=".13;.13;.55;.55;.13;.13" keyTimes="0;0.024;0.04;0.277;0.295;1" dur="10s" repeatCount="indefinite"/>
+            <animate attributeName="stroke-opacity" values=".26;.26;1;1;.26;.26" keyTimes="0;0.024;0.04;0.277;0.295;1" dur="10s" repeatCount="indefinite"/>
+          </path>
+          <path d="M392 96 C 468 118, 586 118, 662 96" fill-opacity=".13" stroke-opacity=".26">
+            <animate attributeName="fill-opacity" values=".13;.13;.55;.55;.13;.13" keyTimes="0;0.281;0.297;0.553;0.571;1" dur="10s" repeatCount="indefinite"/>
+            <animate attributeName="stroke-opacity" values=".26;.26;1;1;.26;.26" keyTimes="0;0.281;0.297;0.553;0.571;1" dur="10s" repeatCount="indefinite"/>
+          </path>
+          <path d="M724 96 C 817 118, 963 118, 1056 96" fill-opacity=".13" stroke-opacity=".26">
+            <animate attributeName="fill-opacity" values=".13;.13;.55;.55;.13;.13" keyTimes="0;0.596;0.612;0.928;0.946;1" dur="10s" repeatCount="indefinite"/>
+            <animate attributeName="stroke-opacity" values=".26;.26;1;1;.26;.26" keyTimes="0;0.596;0.612;0.928;0.946;1" dur="10s" repeatCount="indefinite"/>
+          </path>
+        </g>
+
+        <!-- the one clock both lanes are written against, ruled every second -->
+        <line x1="80" y1="130" x2="1132" y2="130" stroke="url(#gClock)" stroke-width="1.5"/>
+        <g stroke="#a8842f" stroke-width="1" stroke-opacity=".45">
+          <line x1="185" y1="130" x2="185" y2="134"/>
+          <line x1="290" y1="130" x2="290" y2="134"/>
+          <line x1="396" y1="130" x2="396" y2="134"/>
+          <line x1="501" y1="130" x2="501" y2="134"/>
+          <line x1="711" y1="130" x2="711" y2="134"/>
+          <line x1="816" y1="130" x2="816" y2="134"/>
+          <line x1="922" y1="130" x2="922" y2="134"/>
+          <line x1="1027" y1="130" x2="1027" y2="134"/>
+        </g>
+        <g stroke="#dcb264" stroke-width="1.5" stroke-opacity=".85">
+          <line x1="80" y1="130" x2="80" y2="139"/>
+          <line x1="343" y1="130" x2="343" y2="136"/>
+          <line x1="606" y1="130" x2="606" y2="139"/>
+          <line x1="869" y1="130" x2="869" y2="136"/>
+          <line x1="1132" y1="130" x2="1132" y2="139"/>
+        </g>
+        <text x="80" y="156" fill="#c2a271" font-size="11.5" font-family="JetBrains Mono, monospace">0s</text>
+        <text x="588" y="156" fill="#c2a271" font-size="11.5" font-family="JetBrains Mono, monospace">5s</text>
+        <text x="1104" y="156" fill="#c2a271" font-size="11.5" font-family="JetBrains Mono, monospace">10s</text>
 
         <g filter="url(#glow)">
-          <line x1="80" y1="-18" x2="80" y2="130" stroke="#ffffff" stroke-width="2">
+          <line x1="80" y1="-18" x2="80" y2="130" stroke="url(#gHead)" stroke-width="2">
             <animate attributeName="x1" values="80;1132" dur="10s" repeatCount="indefinite"/>
             <animate attributeName="x2" values="80;1132" dur="10s" repeatCount="indefinite"/>
           </line>
-          <circle cx="80" cy="130" r="4.5" fill="#ffffff">
+          <circle cx="80" cy="130" r="7.5" fill="none" stroke="#ffd79a" stroke-opacity=".55" stroke-width="1.5">
+            <animate attributeName="cx" values="80;1132" dur="10s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="80" cy="130" r="4" fill="#ffffff">
             <animate attributeName="cx" values="80;1132" dur="10s" repeatCount="indefinite"/>
           </circle>
         </g>
@@ -98,7 +189,7 @@
   </div>
   <div class="wrap">
     <p class="venue">Under review</p>
-    <h1>Separating <em>What</em> from <em>When</em></h1>
+    <h1>Separating <em class="t-what">What</em> from <em class="t-when">When</em></h1>
     <p class="subtitle">Fine-Grained Temporal Control for Joint Audio-Video Generation</p>
     <p class="authors">
       Yichen Liu<sup>1</sup>,
@@ -157,9 +248,9 @@
 
   <div class="legend">
     <div class="legend-item"><span class="swatch swatch-req"></span>
-      <div><b>Requested</b><br>the interval written in the script</div></div>
-    <div class="legend-item"><span class="swatch swatch-got"></span>
-      <div><b>Produced</b><br>where the cut or line actually landed, measured by the evaluator</div></div>
+      <div><b>Requested</b><br>the shot or line written in the script</div></div>
+    <div class="legend-item"><span class="swatch swatch-now"></span>
+      <div><b>Now</b><br>the interval under the playhead</div></div>
     <div class="legend-item"><span class="swatch swatch-head"></span>
       <div><b>Playhead</b><br>current position, synchronised with the video</div></div>
   </div>
@@ -390,6 +481,6 @@
 </footer>
 
 <script src="assets/data.js"></script>
-<script src="app.js"></script>
+<script src="app.js?v=tl3"></script>
 </body>
 </html>

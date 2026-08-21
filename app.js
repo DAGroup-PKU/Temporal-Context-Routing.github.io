@@ -4,26 +4,16 @@ let current = null;
 const pct = (t, dur) => Math.max(0, Math.min(100, (t / dur) * 100));
 const fmt = (t) => `${t.toFixed(1)}s`;
 
-function makeSeg(item, dur, cls, label) {
+function makeSeg(item, dur, label) {
   const el = document.createElement('div');
-  el.className = `seg ${cls}`;
+  el.className = 'seg';
   const [a, b] = item.req;
-  el.style.left = pct(a, dur) + '%';
-  el.style.width = Math.max(0.8, pct(b, dur) - pct(a, dur)) + '%';
+  const left = pct(a, dur);
+  const width = Math.max(0.8, pct(b, dur) - pct(a, dur));
+  el.style.left = `calc(${left}% + 1px)`;
+  el.style.width = `max(4px, calc(${width}% - 2px))`;
   el.textContent = label;
   return el;
-}
-
-function makeGot(item, dur) {
-  if (!item.got) return null;
-  const frag = document.createDocumentFragment();
-  item.got.forEach((t) => {
-    const m = document.createElement('div');
-    m.className = 'got';
-    m.style.left = pct(t, dur) + '%';
-    frag.appendChild(m);
-  });
-  return frag;
 }
 
 function buildCard(d) {
@@ -81,22 +71,18 @@ function buildCard(d) {
   const timeLabel = card.querySelector('.ctrl-time');
   const playBtn = card.querySelector('.ctrl-play');
 
-  const shotSegs = d.shots.map((s, i) => {
-    const el = makeSeg(s, d.duration, i % 2 ? 's-b' : 's-a', s.id);
+  const shotSegs = d.shots.map((s) => {
+    const el = makeSeg(s, d.duration, s.id);
     el.addEventListener('mouseenter', () => hoverShow(() => showShot(s)));
     shotLane.appendChild(el);
-    const g = makeGot(s, d.duration);
-    if (g) shotLane.appendChild(g);
-    return { el, data: s, from: s.req[0], to: s.req[1], on: false };
+    return { el, data: s, from: s.req[0], to: s.req[1] };
   });
 
   const diaSegs = d.dialogue.map((x) => {
-    const el = makeSeg(x, d.duration, 'd', x.id);
+    const el = makeSeg(x, d.duration, x.id);
     el.addEventListener('mouseenter', () => hoverShow(() => showLine(x)));
     diaLane.appendChild(el);
-    const g = makeGot(x, d.duration);
-    if (g) diaLane.appendChild(g);
-    return { el, data: x, from: x.req[0], to: x.req[1], on: false };
+    return { el, data: x, from: x.req[0], to: x.req[1] };
   });
 
   const headA = document.createElement('div');
@@ -175,21 +161,17 @@ function buildCard(d) {
 
     let shot = null;
     for (const it of shotSegs) {
-      const on = t >= it.from && t < it.to;
-      if (on !== it.on) {
-        it.on = on;
-        it.el.classList.toggle('active', on);
-      }
-      if (on) shot = it.data;
+      const cur = t >= it.from && t < it.to;
+      it.el.classList.toggle('is-current', cur);
+      it.el.classList.toggle('is-played', t >= it.to);
+      if (cur) shot = it.data;
     }
     let line = null;
     for (const it of diaSegs) {
-      const on = t >= it.from && t < it.to;
-      if (on !== it.on) {
-        it.on = on;
-        it.el.classList.toggle('active', on);
-      }
-      if (on) line = it.data;
+      const cur = t >= it.from && t < it.to;
+      it.el.classList.toggle('is-current', cur);
+      it.el.classList.toggle('is-played', t >= it.to);
+      if (cur) line = it.data;
     }
 
     const key = line ? `d${line.id}` : shot ? `s${shot.id}` : 'idle';
@@ -225,8 +207,7 @@ function buildCard(d) {
   function release() {
     engaged = false;
     for (const it of shotSegs.concat(diaSegs)) {
-      it.on = false;
-      it.el.classList.remove('active');
+      it.el.classList.remove('is-current', 'is-played');
     }
     shownKey = 'idle';
     idle();

@@ -1,6 +1,6 @@
 # Project page — Separating What from When
 
-**Live page:** https://lyc0929.github.io/SEPARATING-WHAT-FROM-WHEN/
+**Live page:** https://liuy1chen.github.io/SEPARATING-WHAT-FROM-WHEN/
 
 Anonymous project page for *Fine-Grained Temporal Control for Joint Audio-Video Generation*.
 

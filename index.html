@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=tl3">
+<link rel="stylesheet" href="style.css?v=tl4">
 </head>
 <body>
 
@@ -213,7 +213,7 @@
       <a class="btn" href="#" aria-disabled="true">Paper</a>
       <a class="btn" href="#" aria-disabled="true">arXiv</a>
       <a class="btn" href="#" aria-disabled="true">Code</a>
-      <a class="btn btn-primary" href="#demos">Demos</a>
+      <a class="btn btn-primary" href="#film">Watch video</a>
     </nav>
 
     <div class="stat">
@@ -226,6 +226,7 @@
 
 <nav class="tocbar">
   <div class="wrap toc">
+    <a href="#film">Video</a>
     <a href="#demos">Examples</a>
     <a href="#abstract">Abstract</a>
     <a href="#method">Method</a>
@@ -237,8 +238,25 @@
 
 <main>
 
+<section class="wrap section promo-section" id="film">
+  <div class="h2row"><span class="h2num">01</span><h2>Video overview</h2></div>
+  <figure class="promo-frame">
+    <video controls playsinline preload="metadata"
+           poster="assets/posters/tcr_promo_film_poster.jpg"
+           aria-label="Video overview of Temporal Context Routing">
+      <source src="assets/videos/tcr_promo_film.mp4" type="video/mp4">
+      Your browser does not support embedded MP4 video.
+    </video>
+    <figcaption>
+      <b>Separating What from When.</b> The video groups eight generated excerpts into dense dialogue
+      scheduling, off-screen and cross-cut dialogue, coordinated audio-visual moments and temporal editing, then
+      explains where timing enters the model and reports results on 200 held-out scripts.
+    </figcaption>
+  </figure>
+</section>
+
 <section class="wrap section" id="demos">
-  <div class="h2row"><span class="h2num">01</span><h2>Generated examples</h2></div>
+  <div class="h2row"><span class="h2num">02</span><h2>Generated examples</h2></div>
   <p class="section-note">
     Seven held-out scripts, none seen during training. Every clip below was generated from a
     structured script that states, in seconds, when each shot starts and when each line is spoken.
@@ -264,7 +282,7 @@
 </section>
 
 <section class="wrap section" id="abstract">
-  <div class="h2row"><span class="h2num">02</span><h2>Abstract</h2></div>
+  <div class="h2row"><span class="h2num">03</span><h2>Abstract</h2></div>
   <p class="abstract">
     Audio-video generation is shifting from prompt following to script execution, where success
     depends on placing the requested content at the requested time. A director-style script
@@ -279,7 +297,7 @@
 </section>
 
 <section class="wrap section" id="method">
-  <div class="h2row"><span class="h2num">03</span><h2>Method</h2></div>
+  <div class="h2row"><span class="h2num">04</span><h2>Method</h2></div>
   <p class="section-note">
     The text encoder represents <em>what</em> each record describes; a separate pathway decides
     <em>when</em> it should influence generation.
@@ -342,7 +360,7 @@
 </section>
 
 <section class="wrap section" id="data">
-  <div class="h2row"><span class="h2num">04</span><h2>Construction of data</h2></div>
+  <div class="h2row"><span class="h2num">05</span><h2>Construction of data</h2></div>
   <p class="section-note">
     A model can only learn precise execution from a clock that was precise during training, so the
     timings are measured rather than guessed.
@@ -394,7 +412,7 @@
 </section>
 
 <section class="wrap section" id="results">
-  <div class="h2row"><span class="h2num">05</span><h2>Comparison with open-source generators</h2></div>
+  <div class="h2row"><span class="h2num">06</span><h2>Comparison with open-source generators</h2></div>
   <p class="section-note">
     200 held-out scripts. This table contextualizes end-to-end behaviour across systems that differ
     in architecture and training data; the paper's ablations control for both under one matched
@@ -461,7 +479,7 @@
 </section>
 
 <section class="wrap section" id="cite">
-  <div class="h2row"><span class="h2num">06</span><h2>Citation</h2></div>
+  <div class="h2row"><span class="h2num">07</span><h2>Citation</h2></div>
   <pre class="cite">@inproceedings{liu2027separating,
   title     = {Separating What from When: Fine-Grained Temporal Control
                for Joint Audio-Video Generation},
@@ -480,7 +498,7 @@
      checkpoints: every clip comes from the same model at the same training step used in the paper.</p>
 </footer>
 
-<script src="assets/data.js"></script>
-<script src="app.js?v=tl3"></script>
+<script src="assets/data.js?v=offscreen1"></script>
+<script src="app.js?v=tl4"></script>
 </body>
 </html>

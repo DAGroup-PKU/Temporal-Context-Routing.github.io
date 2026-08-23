@@ -381,6 +381,44 @@ h3 {
 
 .figure figcaption b { color: var(--ink-soft); font-weight: 600; }
 
+/* ---------- introductory film ---------- */
+
+.promo-section { max-width: 1240px; }
+
+.promo-note { max-width: 880px; }
+
+.promo-frame {
+  margin: 0;
+  padding: 12px 12px 16px;
+  overflow: hidden;
+  background:
+    radial-gradient(860px 320px at 50% -10%, rgba(77,134,196,.17), transparent 72%),
+    var(--card);
+  border: 1px solid var(--line);
+  border-radius: calc(var(--radius) + 4px);
+  box-shadow: 0 24px 70px rgba(0,0,0,.38);
+}
+
+.promo-frame video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  background: #000;
+  border-radius: 10px;
+}
+
+.promo-frame figcaption {
+  margin: 14px 8px 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--ink-faint);
+  font-size: 13.5px;
+  line-height: 1.62;
+}
+
+.promo-frame figcaption b { color: var(--ink-soft); font-weight: 600; }
+
 /* ---------- prose columns ---------- */
 
 .cols {

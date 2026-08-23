@@ -323,6 +323,20 @@ function addClaim(card) {
 }
 
 function boot(rows) {
+  // Lead with the two cases used in the film's "Dialogue Beyond the Frame"
+  // chapter, then the dense-dialogue stress test. The remaining held-out
+  // examples retain their original relative order.
+  const preferred = new Map([
+    ['clip_32845', 0],
+    ['clip_21577', 1],
+    ['clip_59538', 2],
+  ]);
+  rows = rows.slice().sort((a, b) => {
+    const pa = preferred.has(a.id) ? preferred.get(a.id) : 100;
+    const pb = preferred.has(b.id) ? preferred.get(b.id) : 100;
+    return pa - pb;
+  });
+
   // The clips are not all the same shape. Give the grid the shortest frame of
   // the bunch so the rows share one height; object-fit letterboxes the rest.
   const shortest = rows.slice(1).reduce((min, d) => Math.min(min, (d.h || 1280) / (d.w || 704)), Infinity);

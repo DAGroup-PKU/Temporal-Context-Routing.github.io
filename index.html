@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=tl5">
+<link rel="stylesheet" href="style.css?v=tl10">
 </head>
 <body>
 
@@ -243,28 +243,16 @@
   <div class="h2row"><span class="h2num">01</span><h2>Video overview</h2></div>
   <figure class="promo-frame">
     <video controls playsinline preload="metadata"
-           poster="assets/posters/tcr_promo_film_poster.jpg"
+           poster="assets/posters/tcr_promo_film_poster.jpg?v=26"
            aria-label="Video overview of Temporal Context Routing">
-      <source src="assets/videos/tcr_promo_film.mp4" type="video/mp4">
+      <source src="assets/videos/tcr_promo_film.mp4?v=26" type="video/mp4">
       Your browser does not support embedded MP4 video.
     </video>
-    <figcaption>
-      <b>Separating What from When.</b> The video groups eight generated excerpts into dense dialogue
-      scheduling, off-screen and cross-cut dialogue, coordinated audio-visual moments and temporal editing, then
-      explains where timing enters the model and reports results on 200 held-out scripts.
-    </figcaption>
   </figure>
 </section>
 
 <section class="wrap section" id="demos">
   <div class="h2row"><span class="h2num">02</span><h2>Generated examples</h2></div>
-  <p class="section-note">
-    Seven held-out scripts, none seen during training. Every clip below was generated from a
-    structured script that states, in seconds, when each shot starts and when each line is spoken.
-    Playing a video alone cannot show whether those times were honoured, so each card carries the
-    script's own clock underneath.
-  </p>
-
   <div class="legend">
     <div class="legend-item"><span class="swatch swatch-req"></span>
       <div><b>Requested</b><br>the shot or line written in the script</div></div>
@@ -273,12 +261,6 @@
     <div class="legend-item"><span class="swatch swatch-head"></span>
       <div><b>Playhead</b><br>current position, synchronised with the video</div></div>
   </div>
-  <p class="note">
-    The two rows sit on one timeline on purpose: a line of dialogue often runs straight through a
-    cut, so the shot lane and the dialogue lane cannot be judged independently.
-    Click a card to play or pause. Hover a shot or a line to read what the script asked for.
-  </p>
-
   <div class="grid" id="grid"></div>
 </section>
 
@@ -299,11 +281,6 @@
 
 <section class="wrap section" id="method">
   <div class="h2row"><span class="h2num">04</span><h2>Method</h2></div>
-  <p class="section-note">
-    The text encoder represents <em>what</em> each record describes; a separate pathway decides
-    <em>when</em> it should influence generation.
-  </p>
-
   <figure class="figure">
     <img src="assets/figures/fig_method_v10.png"
          alt="TCR applied to the video and audio towers of a joint backbone">
@@ -362,11 +339,6 @@
 
 <section class="wrap section" id="data">
   <div class="h2row"><span class="h2num">05</span><h2>Construction of data</h2></div>
-  <p class="section-note">
-    A model can only learn precise execution from a clock that was precise during training, so the
-    timings are measured rather than guessed.
-  </p>
-
   <figure class="figure">
     <img src="assets/figures/fig_data_pipeline_v3.png"
          alt="Three-stage pipeline for building multi-shot audio-visual clips with corrected timings">
@@ -414,12 +386,6 @@
 
 <section class="wrap section" id="results">
   <div class="h2row"><span class="h2num">06</span><h2>Comparison with open-source generators</h2></div>
-  <p class="section-note">
-    200 held-out scripts. This table contextualizes end-to-end behaviour across systems that differ
-    in architecture and training data; the paper's ablations control for both under one matched
-    recipe.
-  </p>
-
   <div class="tablewrap">
     <table class="results">
       <thead>

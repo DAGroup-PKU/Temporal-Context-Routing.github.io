@@ -307,7 +307,14 @@ body {
 .section { padding: 74px 28px; scroll-margin-top: 60px; }
 .section + .section { border-top: 1px solid var(--line-soft); }
 
-.h2row { display: flex; align-items: baseline; gap: 16px; margin: 0 0 20px; }
+.h2row {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 16px;
+  margin: 0 0 40px;
+  text-align: center;
+}
 
 .h2num {
   font-family: var(--display);
@@ -339,20 +346,25 @@ h3 {
 }
 
 .abstract {
-  margin: 0;
+  margin: 0 auto;
   max-width: 880px;
   color: var(--ink-soft);
   font-size: 17px;
   line-height: 1.78;
+  text-align: center;
 }
 
 .abstract strong { color: var(--ink); font-weight: 600; }
 .abstract em { color: var(--accent); font-style: italic; }
 
-.section-note { margin: -6px 0 30px; color: var(--ink-faint); font-size: 14.5px; max-width: 800px; }
-.section-note em { color: var(--ink-soft); }
+#demos > .legend {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  margin-bottom: 32px;
+}
 
-.note { margin: 16px 0 34px; font-size: 14.5px; color: var(--ink-faint); max-width: 840px; }
+#demos > .legend .legend-item { justify-content: center; }
 
 /* ---------- figures ---------- */
 
@@ -932,6 +944,9 @@ footer p { margin: 0; font-size: 13.5px; color: var(--ink-faint); max-width: 820
   .toc { gap: 17px; padding: 11px 20px; }
   .figure { padding: 14px 14px 12px; }
   .legend { gap: 16px; }
+  #demos > .legend { grid-template-columns: 1fr; }
+  .h2row { gap: 12px; margin-bottom: 28px; }
+  #demos > .legend { margin-bottom: 28px; }
   .h2num { font-size: 24px; }
   h2 { font-size: 28px; }
   .stat { gap: 12px; }

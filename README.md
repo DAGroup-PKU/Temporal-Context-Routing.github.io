@@ -1,6 +1,6 @@
 # Project page — Separating What from When
 
-**Live page:** https://dagroup-pku.github.io/SEPARATING-WHAT-FROM-WHEN/
+**Live page:** https://dagroup-pku.github.io/SEPARATING-WHAT-FROM-WHEN.github.io/
 
 Project page for *Fine-Grained Temporal Control for Joint Audio-Video Generation*.
 

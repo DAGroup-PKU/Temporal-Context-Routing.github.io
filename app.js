@@ -20,10 +20,15 @@ function buildCard(d) {
   const card = document.createElement('article');
   card.className = 'card';
 
+  const timedItems = Array.isArray(d.events) ? d.events : (d.dialogue || []);
+  const laneLabel = d.laneLabel || (Array.isArray(d.events) ? 'events' : 'dialogue');
+  const countLabel = laneLabel === 'dialogue' ? 'lines' : 'events';
+  const timedCount = d.metrics.ndia != null ? d.metrics.ndia : timedItems.length;
+
   card.innerHTML = `
     <div class="card-head">
       <span class="card-title">${d.title}</span>
-      <span class="card-meta">${d.metrics.nshot} shots &middot; ${d.metrics.ndia} lines</span>
+      <span class="card-meta">${d.metrics.nshot} shots &middot; ${timedCount} ${countLabel}</span>
     </div>
     <div class="stage" style="--ar: ${d.w || 704} / ${d.h || 1280}">
       <video preload="metadata" playsinline disablePictureInPicture
@@ -49,7 +54,7 @@ function buildCard(d) {
           <div class="lane shots"></div>
         </div>
         <div class="tl-row">
-          <div class="tl-label">dialogue</div>
+          <div class="tl-label">${laneLabel}</div>
           <div class="lane dia dialogue"></div>
         </div>
         <div class="ticks"><span>0s</span><span>${fmt(d.duration / 2)}</span><span>${fmt(d.duration)}</span></div>
@@ -78,7 +83,7 @@ function buildCard(d) {
     return { el, data: s, from: s.req[0], to: s.req[1] };
   });
 
-  const diaSegs = d.dialogue.map((x) => {
+  const diaSegs = timedItems.map((x) => {
     const el = makeSeg(x, d.duration, x.id);
     el.addEventListener('mouseenter', () => hoverShow(() => showLine(x)));
     diaLane.appendChild(el);
@@ -99,11 +104,19 @@ function buildCard(d) {
 
   function showLine(x) {
     const err = x.err != null ? ` <span class="err">onset off by ${x.err.toFixed(3)}s</span>` : '';
-    const spk = x.speaker ? `${x.speaker}: ` : '';
-    readout.innerHTML = `<span class="tag">${x.id} ${x.req[0]}&ndash;${x.req[1]}s</span>${spk}&ldquo;${x.line}&rdquo;${err}`;
+    if (x.line != null) {
+      const spk = x.speaker ? `${x.speaker}: ` : '';
+      readout.innerHTML = `<span class="tag">${x.id} ${x.req[0]}&ndash;${x.req[1]}s</span>${spk}&ldquo;${x.line}&rdquo;${err}`;
+    } else {
+      readout.innerHTML = `<span class="tag">${x.id} ${x.req[0]}&ndash;${x.req[1]}s</span>${x.desc || ''}${err}`;
+    }
   }
 
   function idle() {
+    if (d.summary) {
+      readout.innerHTML = `<span class="tag">Requested timing</span>${d.summary} &middot; hover a block to read the script`;
+      return;
+    }
     readout.innerHTML =
       `<span class="tag">Boundary MAE ${d.metrics.bmae.toFixed(3)}s</span>` +
       `Shot IoU ${d.metrics.iou.toFixed(3)} &middot; dialogue onset ${d.metrics.dstart.toFixed(3)}s &middot; ` +

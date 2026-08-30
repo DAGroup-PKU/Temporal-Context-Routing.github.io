@@ -970,3 +970,80 @@ window.TCR_DATA = [
   "h": 844
  }
 ];
+
+window.TCR_DATA.push(
+ {
+  "id": "closet_reveal_s777_late",
+  "title": "Wardrobe reveal, two cues",
+  "duration": 10.04,
+  "scene": "A clothing rack holds the frame before sliding aside to reveal a woman entering the room.",
+  "style": "Modern, well-lit interior staged as a restrained dramatic reveal.",
+  "audio": "Instrumental room tone with a short sliding-clothes sound effect.",
+  "laneLabel": "events",
+  "summary": "A visual handoff is requested at 5.0 s and the clothing-rack reveal at 7.0 s.",
+  "shots": [
+   {"id": "S1", "req": [0.0, 2.5], "desc": "Close view of the motionless clothes while the man studies the rack."},
+   {"id": "S2", "req": [2.5, 5.0], "desc": "The camera continues across the closed clothing rack."},
+   {"id": "S3", "req": [5.0, 7.0], "desc": "The man waits behind the rack and turns toward frame-left."},
+   {"id": "S4", "req": [7.0, 8.5], "desc": "The clothes slide aside in one motion and reveal the arriving woman."},
+   {"id": "S5", "req": [8.5, 10.0], "desc": "A steady final view holds beside the opened clothing rack."}
+  ],
+  "events": [
+   {"id": "E1", "req": [5.0, 5.25], "desc": "Requested visual handoff at exactly 5.0 seconds."},
+   {"id": "E2", "req": [7.0, 7.5], "desc": "Requested rack movement and reveal at exactly 7.0 seconds."}
+  ],
+  "metrics": {"nshot": 5, "ndia": 2},
+  "w": 704,
+  "h": 1280
+ },
+ {
+  "id": "doorbell_phone_interrupt_s314",
+  "title": "Doorbell cut, three shots",
+  "duration": 10.04,
+  "scene": "A woman pauses a phone call when a doorbell rings, then rises and moves toward the entrance.",
+  "style": "Modern domestic drama with a cool blue evening palette.",
+  "audio": "Room ambience, light background music and two distinct doorbell chimes.",
+  "laneLabel": "events",
+  "summary": "Two doorbell windows begin at the requested shot boundaries, 2.60 s and 6.85 s.",
+  "shots": [
+   {"id": "S1", "req": [0.0, 2.6], "desc": "Close-up of the woman listening with the phone at her ear."},
+   {"id": "S2", "req": [2.6, 6.85], "desc": "On the first ring, cut wider as she lowers the phone and turns toward the door."},
+   {"id": "S3", "req": [6.85, 10.0], "desc": "On the second ring, cut wide as she rises and starts toward the entrance."}
+  ],
+  "events": [
+   {"id": "E1", "req": [2.6, 3.15], "desc": "First two-tone residential doorbell chime."},
+   {"id": "E2", "req": [6.85, 7.4], "desc": "The same doorbell chime rings once more."}
+  ],
+  "metrics": {"nshot": 3, "ndia": 2},
+  "w": 704,
+  "h": 1280
+ },
+ {
+  "id": "keyboard_deadline_s3407",
+  "title": "Office deadline, five events",
+  "duration": 10.04,
+  "scene": "An investigator types, sends evidence, receives confirmation and speaks after the deadline sequence completes.",
+  "style": "Modern late-night office drama with a fixed green practical light and restrained camera work.",
+  "audio": "Dry keyboard sounds, a send chime, phone vibration, rain ambience and one quiet spoken line.",
+  "laneLabel": "events",
+  "summary": "Typing, key press, send chime, phone vibration and one spoken line occupy five requested windows.",
+  "shots": [
+   {"id": "S1", "req": [0.0, 1.3], "desc": "The investigator leans toward the laptop at the desk."},
+   {"id": "S2", "req": [1.3, 3.05], "desc": "Tight insert of both hands typing on the compact keyboard."},
+   {"id": "S3", "req": [3.05, 4.35], "desc": "Close-up as her eyes scan the laptop and settle with decision."},
+   {"id": "S4", "req": [4.35, 5.4], "desc": "Her ringed index finger presses Enter once."},
+   {"id": "S5", "req": [5.4, 6.8], "desc": "The phone vibrates beside the laptop with a confirmation glow."},
+   {"id": "S6", "req": [6.8, 10.0], "desc": "Return to the investigator as she exhales and speaks quietly."}
+  ],
+  "events": [
+   {"id": "E1", "req": [1.3, 4.75], "desc": "One continuous burst of dry laptop typing."},
+   {"id": "E2", "req": [4.9, 5.1], "desc": "One distinct Enter-key click."},
+   {"id": "E3", "req": [5.55, 5.85], "desc": "One clean digital send chime."},
+   {"id": "E4", "req": [6.05, 6.45], "desc": "One short phone vibration on the wooden desk."},
+   {"id": "D1", "req": [7.35, 9.0], "speaker": "PERSON_1", "line": "证据发出去了。现在，等他们回应。"}
+  ],
+  "metrics": {"nshot": 6, "ndia": 5},
+  "w": 704,
+  "h": 1280
+ }
+);

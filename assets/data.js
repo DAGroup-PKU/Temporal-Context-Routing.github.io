@@ -1,7 +1,8 @@
 window.TCR_DATA = [
  {
   "id": "clip_32845",
-  "title": "Night exterior, six shots",
+  "title": "Nighttime Departure",
+  "category": "Dialogue Beyond the Frame",
   "duration": 10.04,
   "scene": "A man and a woman are talking outside a house at night, deciding to leave. Suddenly, another man appears in the doorway, surprising them.",
   "style": "Dramatic, nighttime lighting with a focus on character expressions.",
@@ -160,7 +161,8 @@ window.TCR_DATA = [
  },
  {
   "id": "clip_3004",
-  "title": "Historical interior",
+  "title": "Recurring Nightmare",
+  "category": "Dialogue Beyond the Frame",
   "duration": 12.04,
   "scene": "A young woman tearfully recounts a recurring nightmare and physical pain associated with her cousin to an older woman.",
   "style": "Traditional Chinese historical drama aesthetic with soft lighting and emotional framing.",
@@ -293,7 +295,8 @@ window.TCR_DATA = [
  },
  {
   "id": "clip_59538",
-  "title": "Six lines in ten seconds",
+  "title": "Urgent Search",
+  "category": "Dense Dialogue Scheduling",
   "duration": 9.71,
   "scene": "A tense conversation between two women where one urgently asks for someone's whereabouts and the other reveals they went to a psychiatric hospital.",
   "style": "Dramatic television show style with close-up over-the-shoulder shots to emphasize dialogue and reactions.",
@@ -443,7 +446,8 @@ window.TCR_DATA = [
  },
  {
   "id": "clip_21577",
-  "title": "Off-screen dialogue, four lines",
+  "title": "The Hidden Motive",
+  "category": "Dialogue Beyond the Frame",
   "duration": 12.04,
   "scene": "A man explains his past actions and motivations to a woman, revealing that he felt compelled to act a certain way to win her back from another man. The woman realizes he has been pretending.",
   "style": "Dramatic television or short film style with clear, focused lighting and a blurred outdoor background.",
@@ -576,7 +580,8 @@ window.TCR_DATA = [
  },
  {
   "id": "clip_86114",
-  "title": "Palace interior",
+  "title": "A Dangerous Deception",
+  "category": "Dialogue Beyond the Frame",
   "duration": 11.04,
   "scene": "Two disciples are having a tense conversation in a traditional room, discussing their deceptive actions involving their master and a demon faction.",
   "style": "Chinese fantasy (Xianxia) drama aesthetic with bright lighting, elaborate traditional costumes, and detailed set design.",
@@ -709,7 +714,8 @@ window.TCR_DATA = [
  },
  {
   "id": "clip_56767",
-  "title": "A refusal, five shots",
+  "title": "The Rejected Proposal",
+  "category": "Dialogue Beyond the Frame",
   "duration": 12.04,
   "scene": "A tense conversation between a man and a woman, where the man is trying to plan a wedding but the woman firmly rejects him, leading to his emotional plea.",
   "style": "Dramatic and intimate, with moody, low-key lighting.",
@@ -840,7 +846,8 @@ window.TCR_DATA = [
  },
  {
   "id": "clip_95126",
-  "title": "Makeshift office, five shots",
+  "title": "Makeshift Office",
+  "category": "Dialogue Beyond the Frame",
   "duration": 9.71,
   "scene": "A woman in a lab coat explains the makeshift nature of her workspace to a serious-looking man, suggesting an ongoing investigation or inquiry.",
   "style": "Dramatic lighting with close-up shots that create a tense and intimate atmosphere.",
@@ -974,7 +981,8 @@ window.TCR_DATA = [
 window.TCR_DATA.push(
  {
   "id": "closet_reveal_s777_late",
-  "title": "Wardrobe reveal, two cues",
+  "title": "Wardrobe Reveal",
+  "category": "Coordinated A/V Moments",
   "duration": 10.04,
   "scene": "A clothing rack holds the frame before sliding aside to reveal a woman entering the room.",
   "style": "Modern, well-lit interior staged as a restrained dramatic reveal.",
@@ -998,7 +1006,8 @@ window.TCR_DATA.push(
  },
  {
   "id": "doorbell_phone_interrupt_s314",
-  "title": "Doorbell cut, three shots",
+  "title": "Doorbell Interruption",
+  "category": "Coordinated A/V Moments",
   "duration": 10.04,
   "scene": "A woman pauses a phone call when a doorbell rings, then rises and moves toward the entrance.",
   "style": "Modern domestic drama with a cool blue evening palette.",
@@ -1020,7 +1029,8 @@ window.TCR_DATA.push(
  },
  {
   "id": "keyboard_deadline_s3407",
-  "title": "Office deadline, five events",
+  "title": "Evidence Sent",
+  "category": "Coordinated A/V Moments",
   "duration": 10.04,
   "scene": "An investigator types, sends evidence, receives confirmation and speaks after the deadline sequence completes.",
   "style": "Modern late-night office drama with a fixed green practical light and restrained camera work.",

@@ -27,7 +27,10 @@ function buildCard(d) {
 
   card.innerHTML = `
     <div class="card-head">
-      <span class="card-title">${d.title}</span>
+      <div class="card-heading">
+        <span class="card-title">${d.title}</span>
+        ${d.category ? `<span class="card-capability">${d.category}</span>` : ''}
+      </div>
       <span class="card-meta">${d.metrics.nshot} shots &middot; ${timedCount} ${countLabel}</span>
     </div>
     <div class="stage" style="--ar: ${d.w || 704} / ${d.h || 1280}">

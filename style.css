@@ -140,15 +140,15 @@ body {
   color: transparent;
 }
 
-.subtitle {
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: clamp(18px, 2.1vw, 25px);
-  font-weight: 500;
-  color: #cbd3dd;
-  margin: 0 auto 38px;
+.hero h1 .title-tail {
+  margin: .34em auto 0;
   max-width: 900px;
-  line-height: 1.45;
-  letter-spacing: .025em;
+  font-family: var(--title-script);
+  font-size: .43em;
+  font-weight: 500;
+  color: #d8dee7;
+  line-height: 1.08;
+  letter-spacing: 0;
   text-wrap: balance;
 }
 
@@ -916,7 +916,7 @@ footer p { margin: 0; font-size: 13.5px; color: var(--ink-faint); max-width: 820
   /* The byline runs to many lines on a phone, so it gets back some of the air
      the wide layout can afford to spend. */
   .hero h1 { margin-bottom: 22px; }
-  .subtitle { margin-bottom: 28px; }
+  .hero h1 .title-tail { margin-top: .42em; font-size: .48em; }
   .authors { margin-bottom: 12px; font-size: 16.5px; line-height: 1.8; }
   .affils { margin-bottom: 32px; gap: 8px 20px; font-size: 14px; }
   .toc { gap: 17px; padding: 11px 20px; }

@@ -1,8 +1,8 @@
-# Project page — Separating What from When
+# Project page — The Missing Timeline
 
-**Live page:** https://dagroup-pku.github.io/SEPARATING-WHAT-FROM-WHEN.github.io/
+**Live page:** https://dagroup-pku.github.io/Temporal-Context-Routing.github.io/
 
-Project page for *Fine-Grained Temporal Control for Joint Audio-Video Generation*.
+Project page for *The Missing Timeline: Temporal Context Routing for Script-Aligned Joint Audio-Video Generation*.
 
 ## Running it
 
@@ -26,7 +26,7 @@ python3 -m http.server 8901
 
 ## What is on the page
 
-The page opens with a 79-second video overview assembled from concise excerpts of the held-out
+The page opens with an 81-second video overview assembled from concise excerpts of the held-out
 paper demos and application-oriented candidates. Four English-language section cards group the
 evidence into dense dialogue scheduling, off-screen and cross-cut dialogue, coordinated audio-visual moments,
 and temporal editing. The video then presents the method figure and key quantitative comparisons
@@ -51,7 +51,7 @@ style.css           styling
 app.js              card rendering, timeline, playback sync
 assets/data.json    per-clip script intervals, measured intervals, metrics
 assets/data.js      same payload as a JS global, used by the page at runtime
-assets/videos/      seven generated clips plus the 79-second video overview
+assets/videos/      generated clips plus the 81-second video overview
 assets/posters/     first-frame thumbnails
 ```
 

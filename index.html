@@ -275,9 +275,12 @@
     late or letting dialogue cross the wrong boundary. An interval defines the target, but the
     generator still needs a way to vary each script element's influence over video and audio
     queries. We formulate this missing operation as <strong>temporal routing</strong>.
-    <strong>Temporal Context Routing (TCR)</strong> realizes it by adding an interval-derived
-    timing score to content-based text-attention logits, thereby factorizing unnormalized
-    attention mass into <em>what</em> and <em>when</em> terms on a shared audio&ndash;visual clock.
+    <strong>Temporal Context Routing (TCR)</strong> aligns script-specified shot and dialogue timing
+    with the shared video-audio timeline. Timing bypasses the text encoder and enters
+    cross-attention logits as a routing score, separating <em>what</em> to generate from
+    <em>when</em> it should appear. Built on LTX-2.3 22B, TCR reduces shot-boundary error from
+    <strong>1.11 s to 0.042 s</strong>&mdash;about one frame at 24 fps&mdash;and raises dialogue
+    timing accuracy from <strong>28.3% to 84.1%</strong>.
   </p>
 </section>
 

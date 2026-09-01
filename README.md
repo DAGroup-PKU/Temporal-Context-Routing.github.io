@@ -1,8 +1,8 @@
-# Project page — The Missing Timeline
+# Project page — The Missing Temporal Link
 
 **Live page:** https://dagroup-pku.github.io/Temporal-Context-Routing.github.io/
 
-Project page for *The Missing Timeline: Temporal Context Routing for Script-Aligned Joint Audio-Video Generation*.
+Project page for *The Missing Temporal Link: Temporal Context Routing for Script-Driven Audio-Video Generation*.
 
 ## Running it
 

@@ -2,6 +2,8 @@
 
 **Live page:** https://dagroup-pku.github.io/Temporal-Context-Routing.github.io/
 
+**Paper:** [arXiv:2609.02367](https://arxiv.org/abs/2609.02367) · [Hugging Face Papers](https://huggingface.co/papers/2609.02367)
+
 Project page for *The Missing Temporal Link: Temporal Context Routing for Script-Driven Audio-Video Generation*.
 
 ## Running it
@@ -68,7 +70,7 @@ count matched, boundary MAE ≤ 0.08 s, every line detected with onset error ≤
 were then checked frame by frame to exclude clips carrying burned-in subtitles, and the final
 eight were chosen to cover distinct settings.
 
-## Before publishing
+## Publishing status
 
-- The Paper / arXiv / Code buttons are disabled. Fill in the three `href`s when those links exist.
+- The arXiv, Hugging Face Papers, code, and weights links are live. The standalone Video button remains disabled until its release.
 - The video overview is 1280×720 H.264/AAC with faststart and is about 14 MB.

@@ -72,5 +72,5 @@ eight were chosen to cover distinct settings.
 
 ## Publishing status
 
-- The arXiv, Hugging Face Papers, code, and weights links are live. The standalone Video button remains disabled until its release.
+- The arXiv, Hugging Face Papers, code, and weights links are live.
 - The video overview is 1280×720 H.264/AAC with faststart and is about 14 MB.

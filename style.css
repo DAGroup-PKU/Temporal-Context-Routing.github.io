@@ -320,6 +320,23 @@ h3 {
 .abstract strong { color: var(--ink); font-weight: 600; }
 .abstract em { color: var(--accent); font-style: italic; }
 
+#acknowledgements p {
+  max-width: 900px;
+  margin: 0 auto;
+  color: var(--ink-soft);
+  font-size: 16px;
+  line-height: 1.75;
+  text-align: center;
+}
+
+#acknowledgements a {
+  color: var(--accent);
+  text-decoration-color: rgba(142, 180, 216, .45);
+  text-underline-offset: 3px;
+}
+
+#acknowledgements a:hover { text-decoration-color: var(--accent); }
+
 #demos > .legend {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
